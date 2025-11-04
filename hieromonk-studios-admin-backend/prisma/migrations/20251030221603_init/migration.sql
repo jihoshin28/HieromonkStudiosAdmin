@@ -32,7 +32,7 @@ CREATE TABLE "Contract" (
 
 -- CreateTable
 CREATE TABLE "Project" (
-    "id" SERIAL NOT NULL,
+    "id" SERIAL NOT NULL,//////////
     "name" TEXT NOT NULL,
     "contractId" INTEGER NOT NULL,
     "progress" INTEGER NOT NULL DEFAULT 0,

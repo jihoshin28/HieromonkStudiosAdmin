@@ -17,22 +17,41 @@ import {
   BooleanField,
   required,
 } from 'react-admin';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
 
 export const TaskList = () => (
-  <List>
-    <Datagrid rowClick="edit">
-      <TextField source="id" />
-      <TextField source="title" />
-      <ReferenceField source="projectId" reference="projects" label="Project">
-        <TextField source="name" />
-      </ReferenceField>
-      <TextField source="status" />
-      <TextField source="priority" />
-      <DateField source="dueDate" />
-      <BooleanField source="completed" />
-      <EditButton />
-    </Datagrid>
-  </List>
+  <React.Fragment>
+    <FullCalendar
+      plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+      initialView="timeGridWeek"
+      editable={true}
+      events={[
+        { title: 'Task A', start: '2025-11-04T09:00:00', end: '2025-11-04T10:00:00' },
+        { title: 'Task B', start: '2025-11-04T13:00:00', end: '2025-11-04T15:00:00' },
+      ]}
+      eventClick={(info) => alert(info.event.title)}
+      dateClick={(info) => console.log('Clicked date:', info.dateStr)}
+    />
+    <List>
+      <Datagrid rowClick="edit">
+        <TextField source="id" />
+        <TextField source="title" />
+        <ReferenceField source="projectId" reference="projects" label="Project">
+          <TextField source="name" />
+        </ReferenceField>
+        <TextField source="status" />
+        <TextField source="priority" />
+        <DateField source="dueDate" />
+        <BooleanField source="completed" />
+        <EditButton />
+      </Datagrid>
+    </List>
+
+  </React.Fragment>
+  
 );
 
 export const TaskEdit = () => (
